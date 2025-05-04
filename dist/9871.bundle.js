@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunksitna_map_project_by_kimia_jimenez_majidi=self.webpackChunksitna_map_project_by_kimia_jimenez_majidi||[]).push([[9871],{9871:(t,e,i)=>{i.r(e),i.d(e,{default:()=>n});const n={compiler:[8,">= 4.3.0"],main:function(t,e,i,n,a){return'<button type="button" class="tc-ctl-fscreen-btn tc-float-btn" title="[[fscreen.tip]]"></button>'},useData:!0}}}]);
