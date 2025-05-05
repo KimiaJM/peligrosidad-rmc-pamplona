@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunksitna_map_project_by_kimia_jimenez_majidi=self.webpackChunksitna_map_project_by_kimia_jimenez_majidi||[]).push([[424],{424:(e,a,i)=>{i.r(a),i.d(a,{default:()=>r});var _=i(3075),n=i(2132);class r extends n.A{decodeBlock(e){return(0,_.UD)(new Uint8Array(e)).buffer}}}}]);

@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunksitna_map_project_by_kimia_jimenez_majidi=self.webpackChunksitna_map_project_by_kimia_jimenez_majidi||[]).push([[9238],{9238:(i,a,e)=>{e.r(a),e.d(a,{default:()=>t});const t={compiler:[8,">= 4.3.0"],main:function(i,a,e,t,c){return'<div class="tc-ctl-ovmap-load tc-hidden"></div>'},useData:!0}}}]);
