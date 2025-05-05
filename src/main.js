@@ -12,9 +12,17 @@ const map = new SITNA.Map('mapa', {
     zoom: 10 // Example zoom level
 });
 
-// Añadimos la capa con la red de movilidad ciclista
-map.addLayer(bikeLanesLayer).then(() => {
-    console.log('---> Capa de carriles bici añadida con éxito!');
-}).catch(error => {
-    console.error('Error añadiendo la capa de carriles bici:', error);
+// Cuando esté todo cargado proceder a trabajar con el mapa.
+map.loaded(function () {
+    // Añadimos la capa con la red de movilidad ciclista
+    map.addLayer({
+        id: "redCiclista",
+        title: "Red de movilidad ciclista",
+        type: TC.Consts.layerType.WMS,
+        url: "https://idena.navarra.es/ogc/wms",
+        layerNames: "INFRAE_Lin_TrazadoSIGMC",
+        visibility: true,
+        transparent: true
+    });
 });
+  
