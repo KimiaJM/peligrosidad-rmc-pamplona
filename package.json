@@ -1,7 +1,7 @@
 {
-  "name": "sitna-map-project-by-kimia-jimenez-majidi",
+  "name": "peligrosidad-rmc-pamplona",
   "version": "1.0.0",
-  "description": "A Sitna Map project developed as part of a TFG to create interactive maps using the SITNA API.",
+  "description": "Cálculo de índices de peligrosidad asociados a la Red de Movilidad Ciclista de la ciudad de Pamplona",
   "main": "src/main.js",
   "scripts": {
     "build": "webpack --mode production",

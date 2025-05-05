@@ -1,6 +1,6 @@
-# SITNA Map Project
+# Peligrosidad RMC Pamplona
 
-This project is designed to create interactive maps using the SITNA API. It provides a simple setup to get started with mapping functionalities in JavaScript.
+Cálculo de índices de peligrosidad asociados a la Red de Movilidad Ciclista de la ciudad de Pamplona
 
 ## Project Structure
 
@@ -28,13 +28,19 @@ sitna-map-project
 1. Clone the repository:
    ```
    git clone <repository-url>
-   cd sitna-map-project
+   cd peligrosidad-rmc-pamplona
    ```
 
 2. Install the dependencies:
    ```
    npm install
    ```
+
+### Build for production environment
+To build the application for production environment, use the following command:
+```
+npm run build
+```
 
 ### Running the Application
 
