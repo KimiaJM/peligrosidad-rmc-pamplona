@@ -22,6 +22,10 @@ module.exports = {
                 { from: 'node_modules/api-sitna/resources', to: 'resources' },
                 { from: 'node_modules/api-sitna/wmts', to: 'wmts' }
             ]
+        }),
+        // Ignorar archivos .ini como desktop.ini
+        new webpack.IgnorePlugin({
+            resourceRegExp: /\.ini$/
         })
     ],
     resolve: {
