@@ -1,8 +1,16 @@
 const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+    devServer: {
+        static: path.resolve(__dirname, 'dist'),
+        compress: true,
+        port: 8080,
+        hot: true,
+        open: true,
+    },
     mode: 'development',
     entry: './src/main.js',
     output: {
@@ -10,6 +18,10 @@ module.exports = {
         path: path.resolve(__dirname, 'dist')
     },
     plugins: [
+        new HtmlWebpackPlugin({
+            template: './src/index.html',
+            filename: 'index.html', 
+        }),
         new webpack.DefinePlugin({
             'SITNA_BASE_URL': JSON.stringify('/js/api-sitna/')
         }),
@@ -23,7 +35,6 @@ module.exports = {
                 { from: 'node_modules/api-sitna/wmts', to: 'wmts' }
             ]
         }),
-        // Ignorar archivos .ini como desktop.ini
         new webpack.IgnorePlugin({
             resourceRegExp: /\.ini$/
         })

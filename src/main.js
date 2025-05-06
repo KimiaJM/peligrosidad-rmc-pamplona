@@ -1,28 +1,17 @@
-// filepath: /sitna-map-project/sitna-map-project/src/main.js
 import 'api-sitna'; // Importing the SITNA API
-import { bikeLanesLayer } from './layers/red-movilidad-ciclista';
+import { municipios } from './layers/municipios.model';
+import { puntosRiesgo } from './layers/puntosRiesgo.model';
+import { redCiclista } from './layers/redCiclista.model';
 
-// Define the base URL for the SITNA resources
-const SITNA_BASE_URL = '/js/api-sitna/';
+// Crear la instancia base del SITNA.Map
+const map = new SITNA.Map('mapa');
 
-// Create an instance of the SITNA.Map class
-const map = new SITNA.Map('mapa', {
-    baseLayer: 'default', // Default base layer
-    center: [-1.645, 42.816], // Example coordinates (center of Navarra)
-    zoom: 10 // Example zoom level
-});
-
-// Cuando esté todo cargado proceder a trabajar con el mapa.
+// Cuando esté todo cargado se procede a trabajar con el mapa
 map.loaded(function () {
-    // Añadimos la capa con la red de movilidad ciclista
-    map.addLayer({
-        id: "redCiclista",
-        title: "Red de movilidad ciclista",
-        type: TC.Consts.layerType.WMS,
-        url: "https://idena.navarra.es/ogc/wms",
-        layerNames: "INFRAE_Lin_TrazadoSIGMC",
-        visibility: true,
-        transparent: true
-    });
+    // Se añade capa de red de movilidad ciclista
+    map.addLayer(redCiclista);
+    // Se añade capa de puntos de riesgo
+    map.addLayer(puntosRiesgo);
+    // Se añade capa de delimitación de municipios
+    map.addLayer(municipios);
 });
-  
