@@ -1,0 +1,41 @@
+Red de movilidad ciclista (SIGMC):
+	 Atributo: FEATURE - Descripción: Identificador de feature (objeto geográfico) en el modelo de datos SITNA
+	 Atributo: MUNICIPIO - Descripción: Nombre oficial de municipio
+	 Atributo: TITULAR - Descripción: Nombre o tipo de persona u organismo que figura como titular de algún bien (parcelas, equipamiento, etc.)
+	 Atributo: ESTADO - Descripción: Codificación del estado de uso en el que se encuentra un elemento
+	 Atributo: VIA - Descripción: Nombre oficial completo de vía
+	 Atributo: FECHACONST - Descripción: Fecha de construcción del elemento
+	 Atributo: FECHAMANTE - Descripción: Fecha del último mantenimiento realizado al elemento
+	 Atributo: TIPOVIACIC - Descripción: Tipo de vía ciclista o ciclable
+	 Atributo: PLATAFORMA - Descripción: Plataforma sobre la que se encuentra el elemento
+	 Atributo: CVMOTOR - Descripción: Describe si se comparte espacio con vehículos a motor
+	 Atributo: CPEATONES - Descripción: Describe si se comparte espacio con peatones
+	 Atributo: FIRME - Descripción: Descripción del tipo de terreno
+	 Atributo: SITUACION - Descripción: Situación de cada uno de los elementos de una capa
+	 Atributo: SENTIDO - Descripción: Sentido de circulación o avance
+	 Atributo: DIROPUESTA - Descripción: Posibilidad de circulación o avance en dirección opuesta en tramos de sentido único
+	 Atributo: CARRILES - Descripción: Número de carriles de un vial
+	 Atributo: COLOR - Descripción: Color del elemento
+	 Atributo: DELIMITACI - Descripción: Describe la existencia o tipo de una delimitación del elemento
+	 Atributo: PROTECCION - Descripción: Describe la existencia o tipo de un sistema de protección
+	 Atributo: POSICION - Descripción: Describe la posición del elemento en un espacio
+	 Atributo: SHORIZONTA - Descripción: Describe la existencia o tipo de señalización horizontal
+	 Atributo: ANCHURA - Descripción: Anchura del elemento
+	 Atributo: AMINUTIL - Descripción: Anchura mínima útil de un elemento
+	 Atributo: PENDEXTREM - Descripción: Pendiente entre extremos
+	 Atributo: PENDMEDIA - Descripción: Pendiente media
+	 Atributo: PENDMAXIMA - Descripción: Pendiente máxima
+	 Atributo: LONGITUD - Descripción: Longitud de un elemento
+	 Atributo: VELOCIDAD - Descripción: Dato referente a la medida de la velocidad
+	 Atributo: CONEXION - Descripción: Descripción del tipo de conexión del elemento
+	 Atributo: RAMPA - Descripción: Describe la existencia o tipo de una rampa
+	 Atributo: ILUMINACIO - Descripción: Describe la existencia o tipo de iluminación o alumbrado
+	 Atributo: ANTIDESLIZ - Descripción: Describe la existencia o tipo de un antideslizante
+	 Atributo: RUTA - Descripción: Nombre o denominación de una ruta
+	 Atributo: SEMAFORO - Descripción: Describe la existencia o tipo de un semáforo
+	 Atributo: NIVACUSTIC - Descripción: Nivel acústico asociado al elemento
+	 Atributo: VELPARALEL - Descripción: Velocidad de los vehículos que circulan paralelos al elemento
+	 Atributo: OBSERVACIO - Descripción: Observaciones de cualquier tipo referentes a los elementos de una capa
+	 Atributo: FUENTEINFO - Descripción: Origen de la información
+	 Atributo: FECHAOBTEN - Descripción: Fecha de obtención del dato
+	 Atributo: BEGINLIFE - Descripción: Fecha de inserción del dato en la base de datos SITNA
