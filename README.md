@@ -5,11 +5,14 @@ El objetivo es realizar un cálculo de índices de peligrosidad asociados a cada
 ## Project Structure
 ```
 sitna-map-project
-├── src
-│   ├── layers            # Contains details for map layers
+├── src/
+│   ├── layers/           # Contains details for map layers
+│   │   ├── redCiclista.model.js
+│   │   ├── puntosRiesgo.model.js
+│   │   ├── municipios.model.js
 │   ├── index.html        # HTML structure of the application
 │   ├── main.js           # Main JavaScript (entry point)
-│   └── styles
+│   └── styles/
 │       └── main.css      # CSS styles for the application
 ├── webpack.config.js     # Webpack configuration file
 ├── package.json          # npm configuration file
