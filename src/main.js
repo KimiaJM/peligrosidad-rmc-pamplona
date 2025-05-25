@@ -24,6 +24,8 @@ map.loaded(function () {
     
     console.log("Mapa inicializado y centrado en Pamplona");
 
+    const geoJsonURL = 'data/INFRAE_Lin_TrazadoSIGMC.geojson'
+
     // Usar exactamente las coordenadas del primer y último punto del GeoJSON
     const start = ejemploSimple.features[0].geometry.coordinates[0];
     const end = ejemploSimple.features[ejemploSimple.features.length - 1].geometry.coordinates[ejemploSimple.features[ejemploSimple.features.length - 1].geometry.coordinates.length - 1];
@@ -32,5 +34,6 @@ map.loaded(function () {
     console.log(`Punto de destino: ${end}`);
     
     // Usar el objeto GeoJSON directamente
-    calcularRutaSegura(map, ejemploSimple, start, end);
+    calcularRutaSegura(map, geoJsonURL, start, end);
+    // calcularRutaSegura(map, ejemploSimple, start, end);
 });
