@@ -1,7 +1,8 @@
-import 'api-sitna'; // Importing the SITNA API
+import 'api-sitna';
 import { municipios } from './layers/municipios.model';
 import { puntosRiesgo } from './layers/puntosRiesgo.model';
 import { redCiclista } from './layers/redCiclista.model';
+import { limitarAPamplona } from './map/limitarVisualizacion.js';
 
 // Crear la instancia base del SITNA.Map
 const map = new SITNA.Map('mapa');
@@ -14,4 +15,8 @@ map.loaded(function () {
     map.addLayer(puntosRiesgo);
     // Se añade capa de delimitación de municipios
     map.addLayer(municipios);
+
+    // Centrar el mapa en Pamplona
+    limitarAPamplona(map);
+    console.log("Mapa inicializado y centrado en Pamplona");
 });

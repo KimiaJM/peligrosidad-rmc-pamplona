@@ -15,12 +15,29 @@ module.exports = {
     entry: './src/main.js',
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'dist'),
+        clean: true
+    },
+    module: {
+        rules: [
+            {
+                test: /\.json$/,
+                type: 'json'
+            }
+        ]
+    },
+    resolve: {
+        extensions: ['.js', '.json'],
+        fallback: {
+            assert: false,
+            util: false
+        }
     },
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/index.html',
             filename: 'index.html', 
+            favicon: 'src/favicon.ico'
         }),
         new webpack.DefinePlugin({
             'SITNA_BASE_URL': JSON.stringify('/js/api-sitna/')
@@ -32,17 +49,13 @@ module.exports = {
                 { from: 'node_modules/api-sitna/layout', to: 'layout' },
                 { from: 'node_modules/api-sitna/lib', to: 'lib' },
                 { from: 'node_modules/api-sitna/resources', to: 'resources' },
-                { from: 'node_modules/api-sitna/wmts', to: 'wmts' }
+                { from: 'node_modules/api-sitna/wmts', to: 'wmts' },
+                { from: 'src/data', to: 'data' }
             ]
         }),
         new webpack.IgnorePlugin({
             resourceRegExp: /\.ini$/
         })
     ],
-    resolve: {
-        fallback: {
-            assert: false,
-            util: false
-        }
-    }
+    devtool: 'eval-source-map'
 };
