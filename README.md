@@ -6,10 +6,22 @@ El objetivo es realizar un cálculo de índices de peligrosidad asociados a cada
 ```
 sitna-map-project
 ├── src/
+│   ├── data/             # Contains some data required to run the application
+│   │   ├── INFRAE_Lin_TrazadoSIGMC.geojson
+|   |   ├── prep/         # Contains files prepared in advance to run the application
+│   │   │   ├── indicesPeligrosidad.js
+│   │   │   └── tiposCarrilBici.json
 │   ├── layers/           # Contains details for map layers
 │   │   ├── redCiclista.model.js
 │   │   ├── puntosRiesgo.model.js
-│   │   ├── municipios.model.js
+│   │   └── municipios.model.js
+|   ├── map/
+|   │   ├── routingLayer.js
+|   │   └── routingController.js ✅
+|   ├── utils/
+|   │   ├── dijkstra.js
+|   │   ├── graphBuilder.js
+|   │   └── procesadorGeoJson.js
 │   ├── index.html        # HTML structure of the application
 │   ├── main.js           # Main JavaScript (entry point)
 │   └── styles/

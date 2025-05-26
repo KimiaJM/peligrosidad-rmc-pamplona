@@ -37,7 +37,6 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src/index.html',
             filename: 'index.html', 
-            favicon: 'src/favicon.ico'
         }),
         new webpack.DefinePlugin({
             'SITNA_BASE_URL': JSON.stringify('/js/api-sitna/')

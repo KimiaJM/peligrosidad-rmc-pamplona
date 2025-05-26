@@ -1,6 +1,7 @@
 import { peligrosidadPorTipoVia } from '../data/prep/indicesPeligrosidad.js';
 import { dijkstra } from '../utils/dijkstra.js';
 import { buildGraph } from '../utils/graphBuilder.js';
+import { encontrarNodoCercanoEnGrafo } from '../utils/graphUtils.js';
 import { enrichFeaturesWithDanger } from '../utils/procesadorGeoJson.js';
 import { addRouteToMap } from './routingLayer.js';
 
@@ -8,12 +9,12 @@ import { addRouteToMap } from './routingLayer.js';
  * Función principal para calcular una ruta segura.
  * @param {SITNA.Map} map - Instancia del mapa SITNA.
  * @param {string|Object} geoJsonData - Ruta al archivo GeoJSON o objeto GeoJSON ya cargado.
- * @param {Array<number>} startCoords - Coordenadas [lng, lat] del punto de inicio.
- * @param {Array<number>} endCoords - Coordenadas [lng, lat] del punto de fin.
+ * @param {Array<number>} start - Coordenadas [lng, lat] del punto de inicio.
+ * @param {Array<number>} end - Coordenadas [lng, lat] del punto de fin.
  */
-export async function calcularRutaSegura(map, geoJsonData, startCoords, endCoords) {
+export async function calcularRutaSegura(map, geoJsonData, start, end) {
     console.log('... Iniciando cálculo de ruta segura...');
-    
+
     try {
         let geojson;
         
@@ -40,6 +41,9 @@ export async function calcularRutaSegura(map, geoJsonData, startCoords, endCoord
 
         console.log(`GeoJSON válido con ${geojson.features.length} features`);
 
+        // Encontrar los nodos más cercanos en el grafo
+        const { startCoords, endCoords } = encontrarNodoCercanoEnGrafo(geojson, start, end);
+
         // Enriquecer features con peligrosidad
         const enriched = enrichFeaturesWithDanger(geojson, peligrosidadPorTipoVia);
 
@@ -47,8 +51,11 @@ export async function calcularRutaSegura(map, geoJsonData, startCoords, endCoord
         const graph = buildGraph(enriched);
 
         // Convertir coordenadas a claves de nodo
-        const startKey = startCoords.join(',');
-        const endKey = endCoords.join(',');
+        const startKey = Array.isArray(startCoords) ? startCoords.join(',') : startCoords;
+        const endKey = Array.isArray(endCoords) ? endCoords.join(',') : endCoords;
+        
+        console.log(`Clave de inicio: ${startKey}`);
+        console.log(`Clave de fin: ${endKey}`);
 
         // Calcular ruta
         const rutaCoords = dijkstra(graph, startKey, endKey);
