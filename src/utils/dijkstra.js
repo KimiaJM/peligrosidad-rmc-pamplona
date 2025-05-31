@@ -109,6 +109,6 @@ export function dijkstra(graph, start, end) {
         current = prevInfo.node;
     }
 
-    console.log(`Ruta encontrada con ${routeCoords.length} puntos`);
+    console.log(`✔️ Ruta encontrada con ${routeCoords.length} puntos`);
     return routeCoords;
 }

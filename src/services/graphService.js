@@ -3,7 +3,7 @@ import { construirGrafo } from '../map/graphBuilder.js';
 /**
  * Servicio para manejar la inicialización y operaciones sobre el grafo
  */
-export class GrafoService {
+export class GraphService {
     constructor() {
         this.grafo = null;
     }
@@ -78,5 +78,14 @@ export class GrafoService {
      */
     isValid() {
         return this.grafo && this.grafo.nodes && Object.keys(this.grafo.nodes).length > 0;
+    }
+
+    
+    /**
+     * Obtiene el grafo inicializado
+     * @returns {Object} El grafo o null si no está inicializado
+     */
+    getGrafo() {
+        return this.grafo;
     }
 }

@@ -1,9 +1,8 @@
 import 'api-sitna';
-import { MapaController } from './controllers/mapaController.js';
+import { MapController } from './controllers/mapController.js';
 import { puntosRiesgo } from './layers/puntosRiesgo.model';
 import { redCiclista } from './layers/redCiclista.model';
-import { zoomEnPamplona } from './map/mapEvents.js';
-import { GrafoService } from './services/grafoService.js';
+import { GraphService } from './services/graphService.js';
 import { RutaService } from './services/rutaService.js';
 
 // Crear la instancia base del SITNA.Map
@@ -17,25 +16,22 @@ map.loaded(async function () {
     map.addLayer(redCiclista);
     map.addLayer(puntosRiesgo);
 
-    // Centrar el mapa en Pamplona
-    zoomEnPamplona(map);
-
     // Inicializar servicios
-    const grafoService = new GrafoService();
-    await grafoService.init();
+    const graphService = new GraphService();
+    await graphService.init();
     
-    if (grafoService.isValid()) {
+    if (graphService.isValid()) {
         console.log("✔️ Grafo inicializado correctamente.");
         
         // Inicializar el servicio de rutas
-        const rutaService = new RutaService(map, grafoService);
+        const rutaService = new RutaService(map, graphService);
         
         // Inicializar el controlador del mapa
-        const mapaController = new MapaController(map, rutaService);
-        mapaController.inicializarEventos();
+        const mapController = new MapController(map, rutaService);
+        mapController.inicializar();
         
         // Exponer el controlador globalmente para depuración (opcional)
-        window.mapaController = mapaController;
+        window.mapController = mapController;
     } else {
         console.error("❌ No se pudo inicializar el grafo correctamente.");
     }
