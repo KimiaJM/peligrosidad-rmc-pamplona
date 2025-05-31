@@ -1,43 +1,42 @@
 import 'api-sitna';
-import { municipios } from './layers/municipios.model';
+import { MapaController } from './controllers/mapaController.js';
 import { puntosRiesgo } from './layers/puntosRiesgo.model';
 import { redCiclista } from './layers/redCiclista.model';
-import { limitarAPamplona } from './map/limitarVisualizacion.js';
-import { calcularRutaSegura } from './map/routingController.js';
-// Importar directamente el archivo JSON para que webpack lo gestione
+import { zoomEnPamplona } from './map/mapEvents.js';
+import { GrafoService } from './services/grafoService.js';
+import { RutaService } from './services/rutaService.js';
 
 // Crear la instancia base del SITNA.Map
 const map = new SITNA.Map('mapa');
 
 // Cuando esté todo cargado se procede a trabajar con el mapa
-map.loaded(function () {
-    // Se añade capa de red de movilidad ciclista
+map.loaded(async function () {
+    console.log("Mapa cargado, inicializando aplicación...");
+    
+    // Añadir capas al mapa
     map.addLayer(redCiclista);
-    // Se añade capa de puntos de riesgo
     map.addLayer(puntosRiesgo);
-    // Se añade capa de delimitación de municipios
-    map.addLayer(municipios);
 
     // Centrar el mapa en Pamplona
-    limitarAPamplona(map);
-    console.log("Mapa inicializado y centrado en Pamplona");
-});
+    zoomEnPamplona(map);
 
-let puntos = [];
-
-// Selección interactiva de puntos en el mapa
-map.on(TC.Consts.event.CLICK, function (e) {
-    const coords = [e.point[0], e.point[1]];
-    puntos.push(coords);
-
-    console.log(`Punto de inicio: ${puntos[0]}`);
-    console.log(`Punto de destino: ${puntos[1]}`);
-    // Si ya hay dos puntos, calcular la ruta
+    // Inicializar servicios
+    const grafoService = new GrafoService();
+    await grafoService.init();
     
-
-    const geoJsonURL = 'data/INFRAE_Lin_TrazadoSIGMC_Pamplona.geojson'
-    if (puntos.length === 2) {
-        calcularRutaSegura(map, geoJsonURL, puntos[0], puntos[1]);
-        puntos = [];
+    if (grafoService.isValid()) {
+        console.log("✔️ Grafo inicializado correctamente.");
+        
+        // Inicializar el servicio de rutas
+        const rutaService = new RutaService(map, grafoService);
+        
+        // Inicializar el controlador del mapa
+        const mapaController = new MapaController(map, rutaService);
+        mapaController.inicializarEventos();
+        
+        // Exponer el controlador globalmente para depuración (opcional)
+        window.mapaController = mapaController;
+    } else {
+        console.error("❌ No se pudo inicializar el grafo correctamente.");
     }
 });

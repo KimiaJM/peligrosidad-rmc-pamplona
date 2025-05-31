@@ -8,8 +8,9 @@
     "start": "webpack serve --mode development"
   },
   "dependencies": {
+    "@turf/turf": "^6.5.0",
     "api-sitna": "^4.6.0",
-    "@turf/turf": "^6.5.0"
+    "graph-data-structure": "^4.5.0"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^9.0.0",

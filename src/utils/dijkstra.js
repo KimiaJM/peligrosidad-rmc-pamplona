@@ -7,15 +7,15 @@
  */
 export function dijkstra(graph, start, end) {
     console.log(`... Ejecutando Dijkstra desde ${start} hasta ${end}`);
-    console.log(`Nodos en el grafo: ${Object.keys(graph).length}`);
+    console.log(`Nodos en el grafo: ${Object.keys(graph.nodes).length}`);
     
     // Si el nodo de inicio o fin no existe en el grafo, retornar error
-    if (!graph[start]) {
+    if (!graph.nodes[start]) {
         console.error(`---> Error: El nodo de inicio ${start} no existe en el grafo.`);
         return null;
     }
     
-    if (!graph[end]) {
+    if (!graph.nodes[end]) {
         console.error(`---> Error: El nodo de destino ${end} no existe en el grafo.`);
         return null;
     }
@@ -23,7 +23,7 @@ export function dijkstra(graph, start, end) {
     const visited = new Set();
     const distances = {};
     const previous = {};
-    const queue = new Set(Object.keys(graph));
+    const queue = new Set(Object.keys(graph.nodes));
 
     // Inicializar distancias
     for (const node of queue) {
@@ -62,16 +62,18 @@ export function dijkstra(graph, start, end) {
         visited.add(currentNode);
         
         // Para cada vecino del nodo actual, actualizar distancias
-        if (graph[currentNode]) {
-            for (const neighbor of graph[currentNode]) {
-                if (visited.has(neighbor.to)) continue;
-                
-                const alt = distances[currentNode] + neighbor.weight;
-                
-                if (alt < distances[neighbor.to]) {
-                    distances[neighbor.to] = alt;
-                    previous[neighbor.to] = currentNode;
-                }
+        const neighbors = graph.edges[currentNode] || [];
+        for (const neighbor of neighbors) {
+            if (visited.has(neighbor.to)) continue;
+            
+            const alt = distances[currentNode] + neighbor.weight;
+            
+            if (alt < distances[neighbor.to]) {
+                distances[neighbor.to] = alt;
+                previous[neighbor.to] = {
+                    node: currentNode,
+                    edge: neighbor
+                };
             }
         }
     }
@@ -89,41 +91,22 @@ export function dijkstra(graph, start, end) {
         return [];
     }
 
-    // Reconstruir el camino inverso
-    while (current) {
-        path.unshift(current); // Añadir al principio del array
-        if (current === start) break;
-        current = previous[current];
-    }
-
-    if (path[0] !== start) {
-        console.warn(`El camino no comienza en el nodo de inicio. Camino: ${path.join(' -> ')}`);
-        return [];
-    }
-
-    // Reconstruir las coordenadas de la ruta
+    // Reconstruir todas las coordenadas de la ruta
     const routeCoords = [];
     
-    for (let i = 0; i < path.length - 1; i++) {
-        const from = path[i];
-        const to = path[i + 1];
+    while (current !== start) {
+        const prevInfo = previous[current];
+        if (!prevInfo) break;
         
-        // Buscar el segmento en el grafo que conecta from con to
-        const segment = graph[from].find(edge => edge.to === to);
-        
-        if (segment && segment.coords) {
-            // Si es el primer segmento, añadir todas las coordenadas
-            if (i === 0) {
-                segment.coords.forEach(coord => routeCoords.push(coord));
-            } else {
-                // Para segmentos posteriores, omitir la primera coordenada (ya está incluida)
-                for (let j = 1; j < segment.coords.length; j++) {
-                    routeCoords.push(segment.coords[j]);
-                }
+        const edge = prevInfo.edge;
+        if (edge && edge.coords) {
+            // Añadir las coordenadas en orden inverso
+            for (let i = edge.coords.length - 1; i >= 0; i--) {
+                routeCoords.unshift(edge.coords[i]);
             }
-        } else {
-            console.error(`---> No se encontró el segmento entre ${from} y ${to}`);
         }
+        
+        current = prevInfo.node;
     }
 
     console.log(`Ruta encontrada con ${routeCoords.length} puntos`);
