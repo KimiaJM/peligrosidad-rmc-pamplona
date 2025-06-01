@@ -1,3 +1,19 @@
+/*  AI Generated code to filter a GeoJSON file for features related to the municipality of Pamplona / Iruña.
+ * @param {string} inputFilePath - Path to the input GeoJSON file
+ * @param {string} outputFilePath - Path to save the filtered GeoJSON file
+ * @param {string} municipalityName - Name of the municipality to filter by
+ * 
+ * This script reads a GeoJSON file, filters the features based on the specified municipality name,
+ * and writes the filtered features to a new GeoJSON file.
+ * 
+ * Example:
+ * node filter_pamplona_only.js
+ * 
+ * --> Municipality: "Pamplona / Iruña"
+ * --> Input file: mapaVectorial_carrilesBici.geojson
+ * --> Output file: mapaVectorial_carrilesBici_pamplona.geojson
+ */
+
 const fs = require('fs');
 const path = require('path');
 

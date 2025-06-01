@@ -1,4 +1,4 @@
-import { peligrosidadPorTipoVia } from '../data/prep/indicesPeligrosidad.js';
+import { peligrosidadPorTipoVia } from '../data/indicesPeligrosidad.js';
 import { construirGrafo } from '../map/graphBuilder.js';
 
 /**
@@ -44,7 +44,6 @@ export class GraphService {
             
             if (numNodos === 0) {
                 console.warn("⚠️ WARNING: El grafo se ha generado sin nodos. Esto puede indicar un problema con los datos GeoJSON.");
-                this.diagnosticarGeojson(geojson);
             }
             
             return this.grafo;
@@ -53,29 +52,6 @@ export class GraphService {
             this.grafo = { nodes: {}, edges: {} };
             return this.grafo;
         }
-    }
-
-    /**
-     * Diagnostica problemas potenciales en el GeoJSON
-     * @param {Object} geojson - Datos GeoJSON a diagnosticar
-     */
-    diagnosticarGeojson(geojson) {
-        // Analizar las primeras features para diagnóstico
-        for (let i = 0; i < Math.min(5, geojson.features.length); i++) {
-            const feature = geojson.features[i];
-            console.log(`Feature ${i}:`, 
-                        `tipo=${feature.geometry?.type || 'sin geometría'}`, 
-                        `coordenadas=${feature.geometry?.coordinates ? 'presentes' : 'ausentes'}`);
-        }
-        
-        // Contar features por tipo
-        const tiposCounts = {};
-        geojson.features.forEach(feature => {
-            const tipo = feature.geometry?.type || 'sin geometría';
-            tiposCounts[tipo] = (tiposCounts[tipo] || 0) + 1;
-        });
-        
-        console.log("Distribución de tipos de geometría:", tiposCounts);
     }
 
     /**

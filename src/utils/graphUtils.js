@@ -12,7 +12,7 @@ export function encontrarNodoMasCercano(grafo, punto) {
         return null;
     }
     
-    // Obtener las claves de los nodos
+    // Obtener los nodos del grafo
     const keys = typeof grafo.nodes === 'function' 
         ? grafo.nodes() 
         : Object.keys(grafo.nodes);

@@ -39,7 +39,7 @@ export class MapController {
         
         setTimeout(() => {
             this.map.setExtent(pamplonaExtent);
-        }, 1000); // Pequeño retraso para asegurar que el mapa esté cargado
+        }, 1000);
     }
 
     /**
