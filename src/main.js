@@ -1,7 +1,8 @@
 import 'api-sitna';
 import { MapController } from './controllers/mapController.js';
-import { puntosRiesgo } from './layers/puntosRiesgo.model';
-import { redCiclista } from './layers/redCiclista.model';
+import { puntosRiesgo } from './layers/puntosRiesgo.model.js';
+import { redCiclista } from './layers/redCiclista.model.js';
+import { rutaCalculada } from './layers/rutaCalculada.model.js';
 import { GraphService } from './services/graphService.js';
 import { RutaService } from './services/rutaService.js';
 
@@ -11,10 +12,11 @@ const map = new SITNA.Map('mapa');
 // Cuando esté todo cargado se procede a trabajar con el mapa
 map.loaded(async function () {
     console.log("Mapa cargado, inicializando aplicación...");
-    
+
     // Añadir capas al mapa
     map.addLayer(redCiclista);
     map.addLayer(puntosRiesgo);
+    map.addLayer(rutaCalculada);
 
     // Inicializar servicios
     const graphService = new GraphService();
@@ -28,9 +30,9 @@ map.loaded(async function () {
         
         // Inicializar el controlador del mapa
         const mapController = new MapController(map, rutaService);
-        mapController.inicializar();
+        mapController.init();
         
-        // Exponer el controlador globalmente para depuración (opcional)
+        // Exponer el controlador globalmente para depuración
         window.mapController = mapController;
     } else {
         console.error("❌ No se pudo inicializar el grafo correctamente.");
