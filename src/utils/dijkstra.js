@@ -11,12 +11,12 @@ export function dijkstra(graph, start, end) {
     
     // Si el nodo de inicio o fin no existe en el grafo, retornar error
     if (!graph.nodes[start]) {
-        console.error(`---> Error: El nodo de inicio ${start} no existe en el grafo.`);
+        console.error(`❌  Error: El nodo de inicio ${start} no existe en el grafo.`);
         return null;
     }
     
     if (!graph.nodes[end]) {
-        console.error(`---> Error: El nodo de destino ${end} no existe en el grafo.`);
+        console.error(`❌  Error: El nodo de destino ${end} no existe en el grafo.`);
         return null;
     }
 
@@ -47,13 +47,13 @@ export function dijkstra(graph, start, end) {
         
         // Si no hay nodos alcanzables, terminar
         if (currentNode === null || distances[currentNode] === Infinity) {
-            console.warn("---> No hay más nodos alcanzables");
+            console.warn("❌  No hay más nodos alcanzables");
             break;
         }
         
         // Si llegamos al destino, terminar
         if (currentNode === end) {
-            console.log(`Destino alcanzado con una distancia de ${distances[end]}`);
+            console.log(`✔️ Destino alcanzado con una distancia de ${distances[end]}`);
             break;
         }
 
@@ -87,7 +87,7 @@ export function dijkstra(graph, start, end) {
 
     // Si no hay un camino al destino, retornar una ruta vacía
     if (!previous[end]) {
-        console.warn(`---> No se encontró un camino desde ${start} hasta ${end}`);
+        console.warn(`❌  No se encontró un camino desde ${start} hasta ${end}`);
         return [];
     }
 

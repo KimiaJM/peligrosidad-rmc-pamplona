@@ -11,6 +11,7 @@ export class MapController {
         this.rutaService = rutaService;
         this.puntosSeleccionados = [];
         this.markers = [];
+        this.rutaActual = null; // Agregamos esta propiedad para rastrear la ruta actual
     }
 
     /**
@@ -72,7 +73,7 @@ export class MapController {
             this.rutaService.calcularRuta(origen, destino)
                 .then(coordenadasRuta => {
                     if (coordenadasRuta) {
-                        this.addRouteToMap(coordenadasRuta);
+                        this.dibujarRutaEnMapa(coordenadasRuta);
                     } else {
                         console.error('❌ No se pudo calcular la ruta entre los puntos seleccionados.');
                         setTimeout(() => this.removeMarkers(), 3000);
@@ -85,9 +86,6 @@ export class MapController {
             
             // Reiniciar puntos seleccionados
             this.puntosSeleccionados = [];
-            
-            // Limpiar marcadores después de 5 segundos (opcional, se puede ajustar)
-            setTimeout(() => this.removeMarkers(), 5000);
         }
     }
 
@@ -136,14 +134,17 @@ export class MapController {
      * Añade una ruta al mapa como una capa vectorial
      * @param {Array} coordenadasRuta - Array de coordenadas [lon, lat] que forman la ruta
      */
-    addRouteToMap(coordenadasRuta) {
+    dibujarRutaEnMapa(coordenadasRuta) {
         if (!coordenadasRuta || coordenadasRuta.length === 0) {
             console.error("❌ No hay coordenadas para dibujar la ruta");
             return;
         }
 
-        // Remover la ruta anterior si existe
+        // Limpiar la ruta anterior si existe
         this.limpiarRutaActual();
+        
+        // Guardar referencia a la ruta actual transformando el sistema de coordenadas
+        this.rutaActual = coordenadasRuta;
 
         // Crear una feature de tipo LineString con las coordenadas
         const rutaFeature = {
@@ -157,20 +158,37 @@ export class MapController {
             }
         };
 
-        // Añadir la feature como una capa al mapa
-        this.map.addLayer({
-            id: "ruta-calculada",
-            title: "Ruta calculada",
-            type: SITNA.Consts.layerType.VECTOR,
-            data: rutaFeature,
-            styles: {
-                line: {
-                    strokeColor: "#FF0000",
-                    strokeWidth: 4,
-                    strokeOpacity: 0.8
+        try {
+            // Añadir la feature como una capa al mapa
+            this.map.addLayer({
+                id: "ruta-calculada",
+                title: "Ruta calculada",
+                type: SITNA.Consts.layerType.VECTOR,
+                data: rutaFeature,
+                styles: {
+                    line: {
+                        strokeColor: "#000000",
+                        strokeWidth: 4,
+                        strokeOpacity: 0.8
+                    }
+                }
+            });
+            
+            console.log("✔️ Ruta dibujada en el mapa");
+            console.log(rutaFeature);
+        } catch (error) {
+            console.error(`❌ Error al dibujar la ruta: ${error.message}`);
+            
+            // Si el error es que la capa ya existe, intentamos eliminarla y volver a añadirla
+            if (error.message.includes("already exists")) {
+                try {
+                    this.map.removeLayer("ruta-calculada");
+                    this.dibujarRutaEnMapa(coordenadasRuta); // Llamada recursiva una vez eliminada la capa
+                } catch (e) {
+                    console.error(`❌ Error al reintentar dibujar la ruta: ${e.message}`);
                 }
             }
-        });
+        }
     }
 
     /**
@@ -178,8 +196,14 @@ export class MapController {
      */
     limpiarRutaActual() {
         const layerId = "ruta-calculada";
-        if (this.map.getLayer(layerId)) {
-            this.map.removeLayer(layerId);
+        try {
+            if (this.map.getLayer(layerId)) {
+                this.map.removeLayer(layerId);
+                console.log("✔️ Ruta anterior eliminada");
+            }
+            this.rutaActual = null;
+        } catch (error) {
+            console.warn(`⚠️ No se pudo eliminar la ruta: ${error.message}`);
         }
     }
 
