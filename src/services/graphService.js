@@ -1,3 +1,4 @@
+import { peligrosidadPorTipoVia } from '../data/prep/indicesPeligrosidad.js';
 import { construirGrafo } from '../map/graphBuilder.js';
 
 /**
@@ -29,7 +30,12 @@ export class GraphService {
             if (!geojson.features || !Array.isArray(geojson.features) || geojson.features.length === 0) {
                 throw new Error("❌ El archivo GeoJSON no contiene features");
             }
-            
+
+            // Enriquecer GeoJSON con índices de peligrosidad
+            geojson.features.forEach(f => {
+                f.properties.peligrosidad = peligrosidadPorTipoVia[f.properties.TIPOVIACIC.trim()] ?? null;
+            });
+
             console.log("Construyendo grafo desde el GeoJSON...");
             this.grafo = construirGrafo(geojson);
             
