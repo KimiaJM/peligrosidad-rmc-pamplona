@@ -3,10 +3,11 @@
  * @param {Object} graph - Grafo representando la red ciclista.
  * @param {string} start - Nodo de inicio.
  * @param {string} end - Nodo de destino.
+ * @param {number} safetyFactor - Factor multiplicador para priorizar la seguridad (default: 10).
  * @returns {Array} Coordenadas de la ruta calculada.
  */
-export function dijkstra(graph, start, end) {
-    console.log(`... Ejecutando Dijkstra desde ${start} hasta ${end}`);
+export function dijkstra(graph, start, end, safetyFactor) {
+    console.log(`... Ejecutando Dijkstra desde ${start} hasta ${end} con prioridad en la seguridad`);
     console.log(`Nodos en el grafo: ${Object.keys(graph.nodes).length}`);
     
     // Si el nodo de inicio o fin no existe en el grafo, retornar error
@@ -31,7 +32,7 @@ export function dijkstra(graph, start, end) {
     }
     distances[start] = 0;
 
-    console.log(`... Iniciando búsqueda de ruta...`);
+    console.log(`... Iniciando búsqueda de ruta priorizando seguridad...`);
 
     while (queue.size) {
         // Encontrar el nodo con la distancia mínima
@@ -66,7 +67,15 @@ export function dijkstra(graph, start, end) {
         for (const neighbor of neighbors) {
             if (visited.has(neighbor.to)) continue;
             
-            const alt = distances[currentNode] + neighbor.weight;
+            // Calcular el peso combinando la distancia y la peligrosidad
+            // Usar un valor por defecto si la peligrosidad no está disponible (5 = valor medio)
+            const peligrosidad = neighbor.properties.peligrosidad !== undefined && neighbor.properties.peligrosidad !== null ? 
+                                neighbor.properties.peligrosidad : 5;
+            
+            // El peso final penaliza rutas más peligrosas en función del safetyFactor
+            const pesoTotal = neighbor.weight * (1 + (peligrosidad * safetyFactor / 10));
+            
+            const alt = distances[currentNode] + pesoTotal;
             
             if (alt < distances[neighbor.to]) {
                 distances[neighbor.to] = alt;
@@ -110,5 +119,39 @@ export function dijkstra(graph, start, end) {
     }
 
     console.log(`✔️ Ruta encontrada con ${routeCoords.length} puntos`);
+    
+    
+        let totalDistancia = 0;
+    let sumaPeligrosidad = 0;
+    let totalTramos = 0;
+
+    current = end;
+    while (current !== start) {
+        const prevInfo = previous[current];
+        if (!prevInfo) break;
+
+        const edge = prevInfo.edge;
+        if (edge) {
+            totalDistancia += edge.weight;
+            const peligrosidad = edge.properties.peligrosidad ?? 5;
+            sumaPeligrosidad += peligrosidad;
+            totalTramos += 1;
+        }
+
+        current = prevInfo.node;
+    }
+
+    // Calcular peligrosidad media
+    const peligrosidadMedia = totalTramos > 0 ? (sumaPeligrosidad / totalTramos).toFixed(2) : "–";
+
+    // Llamar a una función de UI para mostrar el resumen
+    if (typeof window.mostrarResumenRuta === "function") {
+        window.mostrarResumenRuta({
+            distancia: totalDistancia.toFixed(1),
+            peligrosidad: peligrosidadMedia,
+            tramos: totalTramos
+        });
+    }
+
     return routeCoords;
 }

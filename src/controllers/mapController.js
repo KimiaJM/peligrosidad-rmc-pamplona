@@ -68,7 +68,7 @@ export class MapController {
             const destino = this.puntosSeleccionados[1];
             
             // Calcular la ruta entre los puntos
-            this.rutaService.calcularRuta(origen, destino)
+            this.rutaService.calcularRuta(origen, destino, this.getSafetyFactor())
                 .then(coordenadasRuta => {
                     if (coordenadasRuta) {
                         this.dibujarRutaEnMapa(coordenadasRuta);
@@ -138,5 +138,22 @@ export class MapController {
         } else {
             console.warn("⚠️ No hay ruta actual para limpiar");
         }
+    }
+
+    /**
+     * Actualiza el nivel de seguridad para recalcular rutas
+     * @param {number} safetyFactor - Nuevo factor de seguridad
+     */
+    setSafetyFactor(factor) {
+        this.safetyFactor = factor;
+        console.log(`✔️ Safety factor actualizado a: ${factor}`);
+    }
+
+    /**
+     * Lee el nivel de seguridad actual del mapa
+     * @returns {number} safetyFactor - Factor de seguridad actual
+     */
+    getSafetyFactor() {
+        return this.safetyFactor ? this.safetyFactor : 5; // Valor por defecto si no se ha establecido
     }
 }

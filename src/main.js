@@ -9,6 +9,19 @@ import { RutaService } from './services/rutaService.js';
 // Crear la instancia base del SITNA.Map
 const map = new SITNA.Map('mapa');
 
+// Añadimos el medidor de seguridad escogido por el usuario
+const safetyRangeInput = document.getElementById('safetyRange');
+const safetyValueDisplay = document.getElementById('safetyValue');
+
+safetyRangeInput.addEventListener('input', () => {
+    const value = parseInt(safetyRangeInput.value, 10);
+    safetyValueDisplay.textContent = value;
+
+    if (mapController && typeof mapController.setSafetyFactor === 'function') {
+        mapController.setSafetyFactor(value);
+    }
+});
+
 // Cuando esté todo cargado se procede a trabajar con el mapa
 map.loaded(async function () {
     console.log("Mapa cargado, inicializando aplicación...");
@@ -37,4 +50,12 @@ map.loaded(async function () {
     } else {
         console.error("❌ No se pudo inicializar el grafo correctamente.");
     }
+
+    // Mostramos el resumen de la ruta
+    window.mostrarResumenRuta = ({ distancia, peligrosidad, tramos }) => {
+        document.getElementById("resumen-distancia").textContent = distancia;
+        document.getElementById("resumen-peligrosidad").textContent = peligrosidad;
+        document.getElementById("resumen-tramos").textContent = tramos;
+    };
+
 });

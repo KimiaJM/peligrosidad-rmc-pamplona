@@ -16,9 +16,10 @@ export class RutaService {
      * Calcula una ruta entre dos puntos
      * @param {Array} puntoInicio - Coordenadas de inicio [lon, lat]
      * @param {Array} puntoFin - Coordenadas de fin [lon, lat]
+     * @param {number} [safetyFactor] - Factor de seguridad para priorizar rutas más seguras
      * @returns {Promise<Array|boolean>} Promesa con las coordenadas de la ruta o false si falla
      */
-    calcularRuta(puntoInicio, puntoFin) {
+    calcularRuta(puntoInicio, puntoFin, safetyFactor) {
         return new Promise((resolve, reject) => {
             if (!this.graphService.isValid()) {
                 console.error("❌ No se puede calcular la ruta: el grafo no está inicializado");
@@ -41,7 +42,7 @@ export class RutaService {
             }
             
             // Calcular la ruta usando Dijkstra
-            const ruta = dijkstra(grafo, nodoInicio, nodoFin);
+            const ruta = dijkstra(grafo, nodoInicio, nodoFin, safetyFactor);
 
             if (!ruta || ruta.length === 0) {
                 console.error('❌ No se pudo encontrar una ruta entre los puntos seleccionados.');
