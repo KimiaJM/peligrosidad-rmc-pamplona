@@ -4,10 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SITNA Map Project</title>
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/main.css" type="text/css">
 </head>
 <body>
-    <div id="mapa" style="width: 100%; height: 100vh;"></div>
+    <div id="control-seguridad" class="safety-panel">
+        <label for="safetyRange">🔒 Prioridad de seguridad:</label>
+        <input type="range" id="safetyRange" name="safetyRange" min="0" max="10" value="5" step="1">
+        <span id="safetyValue">5</span>
+    </div>
+    <div id="ruta-resumen" class="route-summary">
+        <h3>📍 Resumen de la Ruta</h3>
+        <p><strong>Distancia total:</strong> <span id="resumen-distancia"></span> m</p>
+        <p><strong>Peligrosidad media:</strong> <span id="resumen-peligrosidad"></span>/10</p>
+        <p><strong>Número de tramos:</strong> <span id="resumen-tramos"></span></p>
+    </div>
+    <div id="mapa"></div>
     <script type="module" src="../dist/bundle.js"></script>
 </body>
 </html>

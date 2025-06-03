@@ -4,19 +4,34 @@ El objetivo es realizar un cálculo de índices de peligrosidad asociados a cada
 
 ## Project Structure
 ```
-sitna-map-project
+peligrosidad-rmc-pamplona
 ├── src/
+│   ├── controllers/      # Controllers for handling user interactions and map logic
+│   │   └── mapController.js
+│   ├── data/             # Contains some data required to run the application
+│   │   ├── INFRAE_Lin_TrazadoSIGMC.geojson
+│   │   ├── prep/         # Contains files prepared in advance to run the application
+│   │   │   ├── indicesPeligrosidad.js
+│   │   │   └── tiposCarrilBici.json
 │   ├── layers/           # Contains details for map layers
 │   │   ├── redCiclista.model.js
 │   │   ├── puntosRiesgo.model.js
-│   │   ├── municipios.model.js
+│   │   ├── rutaCalculada.model.js
+│   │   └── municipios.model.js
+│   ├── services/         # Services for calculations and data processing
+│   │   ├── graphService.js
+│   │   └── rutaService.js
+│   ├── utils/
+│   │   ├── dijkstra.js
+│   │   ├── graphBuilder.js
+│   │   └── procesadorGeoJson.js
 │   ├── index.html        # HTML structure of the application
 │   ├── main.js           # Main JavaScript (entry point)
 │   └── styles/
 │       └── main.css      # CSS styles for the application
 ├── webpack.config.js     # Webpack configuration file
 ├── package.json          # npm configuration file
-└── tsconfig.json         # TypeScript configuration file
+└── README.md             # Project documentation
 ```
 
 ## Getting Started

@@ -23,6 +23,10 @@ module.exports = {
             {
                 test: /\.json$/,
                 type: 'json'
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
             }
         ]
     },
@@ -37,7 +41,6 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src/index.html',
             filename: 'index.html', 
-            favicon: 'src/favicon.ico'
         }),
         new webpack.DefinePlugin({
             'SITNA_BASE_URL': JSON.stringify('/js/api-sitna/')
@@ -50,7 +53,8 @@ module.exports = {
                 { from: 'node_modules/api-sitna/lib', to: 'lib' },
                 { from: 'node_modules/api-sitna/resources', to: 'resources' },
                 { from: 'node_modules/api-sitna/wmts', to: 'wmts' },
-                { from: 'src/data', to: 'data' }
+                { from: 'src/data', to: 'data' },
+                { from: 'src/styles', to: 'styles' }
             ]
         }),
         new webpack.IgnorePlugin({

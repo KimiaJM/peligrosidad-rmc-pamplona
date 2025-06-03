@@ -1,3 +1,9 @@
+# AI Generated code to read a shapefile and extract unique types of bike lanes:
+# This script reads a shapefile containing bike lane data and extracts unique types of bike lanes.
+# It then saves these types to a JSON file with a default danger index of 0 for each type.
+# --> Input file: INFRAE_Lin_TrazadoSIGMC.shp
+# --> Output file: tiposCarrilBici.json
+
 import geopandas as gpd
 import os
 import json
