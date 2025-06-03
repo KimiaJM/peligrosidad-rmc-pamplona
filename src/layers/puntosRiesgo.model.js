@@ -1,3 +1,6 @@
+/**
+ * Definición de la capa de "Puntos de Riesgo" obtenida del servicio WMS de IDENA
+ */
 export const puntosRiesgo = {
     id: "puntosRiesgo",
     title: "Puntos de riesgo",

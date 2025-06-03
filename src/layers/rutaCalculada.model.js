@@ -21,7 +21,6 @@ export function crearPolyline(coordenadas, opciones = null) {
         strokeWidth: 6
     };
     
-    // Usar opciones proporcionadas o valores por defecto
     const estilo = opciones || estiloDefecto;
     
     return new SITNA.feature.Polyline(coordenadas, estilo);

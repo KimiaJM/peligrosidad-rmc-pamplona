@@ -73,7 +73,7 @@ export function dijkstra(graph, start, end, safetyFactor) {
                                 neighbor.properties.peligrosidad : 5;
             
             // El peso final penaliza rutas más peligrosas en función del safetyFactor
-            const pesoTotal = neighbor.weight * (1 + (peligrosidad * safetyFactor / 10));
+            const pesoTotal = neighbor.weight + (peligrosidad * safetyFactor);
             
             const alt = distances[currentNode] + pesoTotal;
             
@@ -120,9 +120,9 @@ export function dijkstra(graph, start, end, safetyFactor) {
 
     console.log(`✔️ Ruta encontrada con ${routeCoords.length} puntos`);
     
-    
-        let totalDistancia = 0;
+    let totalDistancia = 0;
     let sumaPeligrosidad = 0;
+    let totalPenalizacion = 0;
     let totalTramos = 0;
 
     current = end;
@@ -135,6 +135,7 @@ export function dijkstra(graph, start, end, safetyFactor) {
             totalDistancia += edge.weight;
             const peligrosidad = edge.properties.peligrosidad ?? 5;
             sumaPeligrosidad += peligrosidad;
+            totalPenalizacion += peligrosidad * safetyFactor;
             totalTramos += 1;
         }
 
@@ -149,6 +150,7 @@ export function dijkstra(graph, start, end, safetyFactor) {
         window.mostrarResumenRuta({
             distancia: totalDistancia.toFixed(1),
             peligrosidad: peligrosidadMedia,
+            penalizacion: totalPenalizacion.toFixed(1),
             tramos: totalTramos
         });
     }

@@ -1,3 +1,6 @@
+/**
+ * Definición de la capa de Red de movilidad ciclista obtenida del servicio WMS de IDENA
+ */
 export const redCiclista = {
     id: "redCiclista",
     title: "Red de movilidad ciclista",
