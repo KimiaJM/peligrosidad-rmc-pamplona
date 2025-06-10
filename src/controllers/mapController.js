@@ -13,6 +13,7 @@ export class MapController {
         this.rutaService = rutaService;
         this.puntosSeleccionados = [];
         this.rutaActual = null;
+        this.limpiarRutaBtn = document.getElementById('limpiarRuta');
     }
 
     /**
@@ -24,6 +25,13 @@ export class MapController {
         
         // Hacer zoom inicial a Pamplona
         this.zoomEnPamplona();
+        
+        // Opción de que el usuario limpie la ruta a mano
+        if (this.limpiarRutaBtn) {
+            this.limpiarRutaBtn.addEventListener('click', () => {
+                this.limpiarRuta();
+            });
+        }
         
         console.log("✔️ Mapa inicializado: click para seleccionar puntos de ruta");
     }
@@ -116,6 +124,11 @@ export class MapController {
             // Guardar referencia a la ruta actual
             this.rutaActual = rutaPolyline;
             
+            // Habilitar el botón de limpiar ruta solo cuando haya una ruta dibujada
+            if (this.limpiarRutaBtn) {
+                this.limpiarRutaBtn.disabled = false;
+            }
+            
             console.log("✔️ Ruta dibujada en el mapa");
         } catch (error) {
             console.error(`❌ Error al dibujar la ruta: ${error.message}`);
@@ -135,6 +148,18 @@ export class MapController {
                 console.error("❌ No se encontró la capa 'rutaCalculada' para limpiar la ruta");
             }
             this.rutaActual = null;
+            
+            // Deshabilitar el botón de limpiar ruta cuando no haya ruta
+            if (this.limpiarRutaBtn) {
+                this.limpiarRutaBtn.disabled = true;
+            }
+            
+            // Limpiar el resumen de la ruta
+            window.mostrarResumenRuta && window.mostrarResumenRuta({
+                distancia: "",
+                peligrosidad: "",
+                tramos: ""
+            });
         } else {
             console.warn("⚠️ No hay ruta actual para limpiar");
         }

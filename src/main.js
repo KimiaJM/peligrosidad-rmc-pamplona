@@ -9,7 +9,9 @@ import { RutaService } from './services/rutaService.js';
 // Crear la instancia base del SITNA.Map
 const map = new SITNA.Map('mapa');
 
-// Añadimos el medidor de seguridad escogido por el usuario
+let mapController;
+
+// Añadimos el medidor de seguridad escogido por el usuario y su valor
 const safetyRangeInput = document.getElementById('safetyRange');
 const safetyValueDisplay = document.getElementById('safetyValue');
 
@@ -41,8 +43,7 @@ map.loaded(async function () {
         // Inicializar el servicio de rutas
         const rutaService = new RutaService(map, graphService);
         
-        // Inicializar el controlador del mapa
-        const mapController = new MapController(map, rutaService);
+        mapController = new MapController(map, rutaService);
         mapController.init();
         
         // Exponer el controlador globalmente para depuración
