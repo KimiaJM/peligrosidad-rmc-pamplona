@@ -1,3 +1,9 @@
+/**
+ * Proyecto: Peligrosidad RMC Pamplona
+ * Autor: Kimia Jiménez Majidí ([@KimiaJM](https://github.com/KimiaJM))
+ * Descripción: Main JavaScript (entry point). Carga mapa Sitna, añade capas y carga los servicios necesarios para la visualización de la ruta y su resumen.
+ */
+
 import 'api-sitna';
 import { MapController } from './controllers/mapController.js';
 import { puntosRiesgo } from './layers/puntosRiesgo.model.js';

@@ -21,6 +21,10 @@
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.1"
   },
-  "author": "Kimia Jimenez Majidi",
+  "author": {
+    "name": "Kimia Jiménez Majidi",
+    "email": "kjimenezma@uoc.edu",
+    "url": "https://github.com/KimiaJM"
+  },
   "license": "MIT"
 }

@@ -2,6 +2,12 @@
 Proyecto basado en API Sitna.
 El objetivo es realizar un cálculo de índices de peligrosidad asociados a cada tipo de vía de la Red de Movilidad Ciclista de la ciudad de Pamplona.
 
+## Autoría
+
+Proyecto desarrollado por Kimia Jiménez Majidí ([@KimiaJM](https://github.com/KimiaJM)).
+
+Contacto: kjimenezma@uoc.edu
+
 ## Estructura del proyecto
 ```
 peligrosidad-rmc-pamplona
@@ -65,7 +71,7 @@ Para iniciar la aplicación, utilizar el siguiente comando:
 npm start
 ```
 Esto compilará el proyecto y lo servirá de forma loca.
-Para acceder a la aplicación, abrir un navegador y acceder al sitio `http://localhost:8080` para visualizar el visor del mapa interactivo.
+Para acceder a la aplicación, se abrirá un navegador y accederá al sitio `http://localhost:8080` para visualizar el visor del mapa interactivo.
 
 
 ### Uso de API SITNA
