@@ -18,7 +18,7 @@ peligrosidad-rmc-pamplona
 │   │   ├── puntosRiesgo.model.js
 │   │   ├── rutaCalculada.model.js
 │   ├── map/         # Definiciones necesarias para el mapa
-│   │   ├── graphBuilder.js      # Construcción del grafo a partir del GeoJson dado
+│   │   └── graphBuilder.js      # Construcción del grafo a partir del GeoJson dado
 │   ├── services/    # Servicios para cálculos y procesamientos
 │   │   ├── graphService.js      # Verificaciones y enriquecimiento de grafo
 │   │   └── rutaService.js       # Busca nodo cercano y calcula ruta
