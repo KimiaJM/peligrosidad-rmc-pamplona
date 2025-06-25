@@ -179,6 +179,6 @@ export class MapController {
      * @returns {number} safetyFactor - Factor de seguridad actual
      */
     getSafetyFactor() {
-        return this.safetyFactor ? this.safetyFactor : 5; // Valor por defecto si no se ha establecido
+        return this.safetyFactor ?? 5; // Valor por defecto si no se ha establecido
     }
 }
