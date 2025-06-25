@@ -22,7 +22,7 @@ peligrosidad-rmc-pamplona
 │   ├── layers/      # Definición de las capas añadidas al mapa
 │   │   ├── redCiclista.model.js
 │   │   ├── puntosRiesgo.model.js
-│   │   ├── rutaCalculada.model.js
+│   │   └── rutaCalculada.model.js
 │   ├── map/         # Definiciones necesarias para el mapa
 │   │   └── graphBuilder.js      # Construcción del grafo a partir del GeoJson dado
 │   ├── services/    # Servicios para cálculos y procesamientos
